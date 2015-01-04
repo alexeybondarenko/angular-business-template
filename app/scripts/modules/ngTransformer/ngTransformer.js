@@ -20,7 +20,6 @@ angular.module('ngTransformer', [])
 function Transfomer (map) {
 	this.map = map;
 }
-
 Transfomer.prototype.parse = function (data) {
 	
 	var tmp = null,
@@ -28,6 +27,7 @@ Transfomer.prototype.parse = function (data) {
 
 	if (data.length) {
 	    data = _.map(data, function(repo) {
+	    	if (typeof map.parse === 'function') return map.parse(repo);
 	    	tmp = {};
 	    	for (var prop in map) {
 	    		// if (!map.hasOwnProperty(prop)) continue;
@@ -48,6 +48,7 @@ Transfomer.prototype.serialize = function (data) {
 
 	if (data.length) {
 		data.forEach(function (model) {
+			if (typeof map.serialize === 'function') return map.serialize(model);
 			tmp = {};
 			for (var prop in map) {
 				// if (!map.hasOwnProperty(prop)) continue;

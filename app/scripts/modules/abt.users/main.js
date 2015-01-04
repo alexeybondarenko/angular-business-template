@@ -19,27 +19,53 @@ function UsersFirebaseApi ($rootScope, $firebase, UsersApiPrototype,$q) {
 	var ref = new Firebase (url);
 	// create an AngularFire reference to the data
     var sync = $firebase(ref);
-    console.log("sync", sync);
     // download the data into a local object
-    var loaded = false;
     var data = sync.$asArray();
-
+    // return user loading promise
     this.getUsers = function () {
-    	// if (loaded) {
-    	// 	return data;
-    	// }
+    	console.info("UsersFirebaseApi: getUsers");
     	return data.$loaded();
-    	console.log("UsersFirebaseApi: getUsers");
-		
 	};
 }
 AbtUsersConfig.$inject = ['UsersApiTransformerProvider'];
 function AbtUsersConfig (UsersApiTransformerProvider) {
 	UsersApiTransformerProvider.setMap({
-		firstName: 'first_name',
-		lastName: 'last_name',
-		birthDate: 'birth_day',
-		jobTitle: 'job_title'
+		parse: function(item) {
+			// parsing date from Firebase backend
+			function parseDate (s) {
+			  var re = /^(\d\d)-(\d\d)-(\d{4}) (\d\d):(\d\d):(\d\d)$/;
+			  var m = re.exec(s);
+			  return m ? new Date(m[3], m[2]-1, m[1], m[4], m[5], m[6]) : null;
+			}
+			// parsed model object
+			return {
+				firstName: item['first_name'], 
+				lastName: item['last_name'], 
+				birthDate: parseDate(item['birth_day']+' 00:00:00'),
+				jobTitle: item['job_title']
+			};
+		}, 
+		serialize: function (item) {
+			// serialize date for Firebase backend
+			function serializeDate (s) {
+				var date = new Date(s);
+				var mm = date.getMonth() + 1,
+					dd = date.getDate(),
+					yyyy = date.getFullYear();
+
+				if (mm < 10) mm = '0'+mm;
+				if (dd < 10) dd = '0'+dd;
+
+				return dd+'-'+mm+'-'+yyyy;
+			}
+			// serialized object
+			return {
+				first_name: item.firstName,
+				last_name: item.lastName,
+				birth_day: serializeDate(item.birthDate),
+				job_title: item.jobTitle
+			};
+		}
 	});	
 }
 
