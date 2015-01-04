@@ -48,8 +48,14 @@ function AbtUsersConfig ($provide, UsersApiTransformerProvider, UsersFirebaseApi
 
 AbtUsersRun.$inject = ['UsersService','UsersApi','UsersApiTransformer','UsersFirebaseApi','UsersFirebaseApiTransformer'];
 function AbtUsersRun (UsersService,UsersApi,UsersApiTransformer, UsersFirebaseApi, UsersFirebaseApiTransformer) {
-	// configuration service for using firebase api and transformer
-	UsersService.api = UsersApi;
-	UsersService.transformer = UsersApiTransformer;
+	// configuration service for using api and transformer
+
+	// Using local data from data/users.json
+	// UsersService.api = UsersApi;
+	// UsersService.transformer = UsersApiTransformer;
+
+	// Using Firebase API
+	UsersService.api = UsersFirebaseApi;
+	UsersService.transformer = UsersFirebaseApiTransformer;
 }
 
