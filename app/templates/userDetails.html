@@ -1,0 +1,14 @@
+<ion-view title="{{user.firstName}} {{user.lastName}}">
+	<ion-content>
+		<ion-list>
+			<ion-item>
+				<div class="item-note">{{user.jobTitle}}</div>
+				Должность
+			</ion-item>
+			<ion-item>
+				<div class="item-note">{{user.birthDate | date: 'dd.MM.yyyy'}}</div>
+				День рождения
+			</ion-item>
+		</ion-list>
+	</ion-content>
+</ion-view>

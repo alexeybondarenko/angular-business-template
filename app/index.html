@@ -8,6 +8,7 @@
     <!-- build:css styles/vendor.css -->
     <!-- <link rel="stylesheet" href="vendor/some.contrib.css"> -->
     <!-- bower:css -->
+    <link rel="stylesheet" href="lib/ionic/release/css/ionic.css" />
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -22,17 +23,40 @@
     <!-- build:js scripts/vendor.js -->
     <!-- <script src="vendor/someContribJs.js"></script> -->
     <!-- bower:js -->
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular-animate/angular-animate.js"></script>
+    <script src="lib/angular-sanitize/angular-sanitize.js"></script>
+    <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="lib/collide/collide.js"></script>
+    <script src="lib/ionic/release/js/ionic.js"></script>
+    <script src="lib/ionic/release/js/ionic-angular.js"></script>
+    <script src="lib/components-underscore/underscore.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
 
+    <!-- build:js scripts/scripts.js -->
+    <script src="scripts/config.js"></script>
+    <script src="scripts/app.js"></script>
+    
+    <script src="scripts/modules/ngTransformer/ngTransformer.js"></script>
 
-        <!-- build:js scripts/scripts.js -->
-        <script src="scripts/config.js"></script>
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers.js"></script>
-        <!-- endbuild -->
+    <script src="scripts/modules/abt.users.providers/service.js"></script>
+    <script src="scripts/modules/abt.users.providers/transformer.js"></script>
+    <script src="scripts/modules/abt.users.providers/api.js"></script>
+    <script src="scripts/modules/abt.users.providers/main.js"></script>
+
+    <script src="scripts/modules/abt.users/api.js"></script>
+    <script src="scripts/modules/abt.users/controllers/users.js"></script>
+    <script src="scripts/modules/abt.users/controllers/userDetails.js"></script>
+    <script src="scripts/modules/abt.users/main.js"></script>
+    <!-- endbuild -->
+    
+    <script src="https://cdn.firebase.com/js/client/2.0.4/firebase.js"></script>
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/0.9.0/angularfire.min.js"></script>
+
 </body>
 </html>

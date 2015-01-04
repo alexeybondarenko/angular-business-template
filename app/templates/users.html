@@ -1,0 +1,15 @@
+<ion-view title="Пользователи">
+	<ion-content>
+		<ion-refresher
+			pulling-text="Pull to refresh..."
+			on-refresh="doRefresh()">
+		</ion-refresher>
+		<ion-list>
+			<ion-item ng-repeat="user in users" ng-click="selectUser(user)" class="item-text-wrapper item-icon-right">
+				<i class="icon icon-accessory ion-chevron-right"></i>
+				<span class="item-note ">{{user.birthDate | date: 'dd.MM.yyyy'}}</span>
+				{{user.firstName}} {{user.lastName}}
+			</ion-item>
+		</ion-list>
+	</ion-content>
+</ion-view>

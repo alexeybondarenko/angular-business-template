@@ -6,7 +6,11 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('AngularBusinessTemplate', ['ionic', 'config', 'AngularBusinessTemplate.controllers'])
+angular.module('AngularBusinessTemplate', [
+  'ionic', 
+  'config', 
+  'abt.users'
+])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -25,50 +29,37 @@ angular.module('AngularBusinessTemplate', ['ionic', 'config', 'AngularBusinessTe
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
-    .state('app', {
-      url: '/app',
+  .state('app', {
+    abstract: true,
+    templateUrl: 'templates/menu.html'
+  })
+    .state('app.users', {
       abstract: true,
-      templateUrl: 'templates/menu.html',
-      controller: 'AppCtrl'
-    })
-
-    .state('app.search', {
-      url: '/search',
       views: {
-        'menuContent' :{
-          templateUrl: 'templates/search.html'
+        'menuContent':{
+          template: '<ion-nav-view></ion-nav-view>'
         }
       }
     })
-
-    .state('app.browse', {
-      url: '/browse',
-      views: {
-        'menuContent' :{
-          templateUrl: 'templates/browse.html'
+      .state('app.users.list', {
+        url: '/users',
+        views: {
+          '': {
+              templateUrl: 'templates/users.html',
+              controller: 'UsersCtrl'
+          }
         }
-      }
-    })
-    .state('app.playlists', {
-      url: '/playlists',
-      views: {
-        'menuContent' :{
-          templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
+      })
+      .state('app.users.details', {
+        url: '/user/:userId',
+        views: {
+          '': {
+              templateUrl: 'templates/userDetails.html',
+              controller: 'UserDetailsCtrl'
+          }
         }
-      }
-    })
-
-    .state('app.single', {
-      url: '/playlists/:playlistId',
-      views: {
-        'menuContent' :{
-          templateUrl: 'templates/playlist.html',
-          controller: 'PlaylistCtrl'
-        }
-      }
-    });
+      })
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  $urlRouterProvider.otherwise('/users');
 });
 

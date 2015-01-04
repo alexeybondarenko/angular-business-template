@@ -1,0 +1,18 @@
+{
+	"success": true,
+	"status": 200,
+	"users": [
+		{
+			"first_name": "Alexey",
+			"last_name": "Bondarenko",
+			"birth_date": "1995-02-21T00:00:00",
+			"job_title": "Senior Javascript Dev"
+		},
+		{
+			"first_name": "Dmitriy",
+			"last_name": "Ivchenko",
+			"birth_date": "1994-03-24T00:00:00",
+			"job_title": "Junior Javascript Dev"
+		}
+	]
+}
