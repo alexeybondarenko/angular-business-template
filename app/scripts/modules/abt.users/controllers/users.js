@@ -1,7 +1,7 @@
 'use strict';
 
-UsersCtrl.$inject = ['$scope','$state','UsersService'];
-function UsersCtrl ($scope, $state, UsersService) {
+UsersCtrl.$inject = ['$scope','$state','$q','UsersService'];
+function UsersCtrl ($scope, $state, $q, UsersService) {
 	$scope.users = [];
 	$scope.selectUser = function (user) {
 		$state.go('app.users.details', {
@@ -9,7 +9,7 @@ function UsersCtrl ($scope, $state, UsersService) {
 		});
 	};
 	$scope.doRefresh = function () {
-		UsersService.getUsers().then(function (resp) {
+		$q.when(UsersService.getUsers()).then(function (resp) {
 			console.info("UsersCtrl:: getUsers resp", resp);
 			$scope.users = resp;
 		}).finally(function() {

@@ -29,6 +29,21 @@ function AbtUsersConfig ($provide, UsersApiTransformerProvider, UsersFirebaseApi
 		}
 		return $delegate;
 	});
+	// Another example of changin behaviour of UsersService provider
+	$provide.decorator('UsersService', function ($delegate) {
+		console.log($delegate);
+		// $delegate.getUsers = function () {
+		// 	return [
+		// 		{
+		// 			firstName: 'Oleksii',
+		// 			lastName: 'Bondarenko',
+		// 			birthDate: new Date(),
+		// 			jobTitle: 'CEO'
+		// 		}
+		// 	];
+		// };
+		return $delegate;
+	});
 }
 
 AbtUsersRun.$inject = ['UsersService','UsersApi','UsersApiTransformer','UsersFirebaseApi','UsersFirebaseApiTransformer'];

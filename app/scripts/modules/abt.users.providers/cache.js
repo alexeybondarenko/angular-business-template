@@ -14,7 +14,7 @@ UsersCache.$inject = [];
 function UsersCache () {
 
 	function UsersCacheObj () {}
-	var _data = null;
+	var _data = [];
 
 	UsersCacheObj.prototype.save  = function (data) {
 		console.info("UsersCache:: saving data");
@@ -24,6 +24,6 @@ function UsersCache () {
 		console.info("UsersCache:: loading data");
 		return _data;
 	};
-	
+
 	return new UsersCacheObj();
 }
