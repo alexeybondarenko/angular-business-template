@@ -3,9 +3,11 @@
 angular.module('abt.users.providers.transformer',[
 	'ngTransformer'
 ])
-.provider('UsersApiTransformer',UsersApiTransformer);
+.provider('UsersTransformerPrototype', UsersTransformerPrototypeProvider);
 
-UsersApiTransformer.$inject = ['$transformProvider'];
-function UsersApiTransformer ($transformProvider) {
-	return $transformProvider;
+UsersTransformerPrototypeProvider.$inject = ['$transformProvider'];
+function UsersTransformerPrototypeProvider ($transformProvider) {
+
+	return Object.create($transformProvider);
+
 }

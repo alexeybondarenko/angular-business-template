@@ -3,45 +3,59 @@
 angular.module('ngTransformer', [])
 .provider('$transform', [function() {
 
-	var map = {};
 	return {
+		__map: null,
+		__model: null,
 		setMap: function (newMapVal) {
-			map = newMapVal;
+			this.__map = newMapVal;
+		},
+		setModel: function (newModel) {
+			this.__model = newModel;
 		},
 		getMap: function () {
-			return map;
+			return this.__map;
 		},
 		$get: function () {
-			return new Transfomer(map);
+			return new Transfomer(this.__map, this.__model);
 		}
 	};
 }]);
 
-function Transfomer (map) {
+function Transfomer (map, model) {
 	this.map = map;
+	this.model = model;
 }
+Transfomer.prototype.map = null;
+Transfomer.prototype.model = null;
+
 Transfomer.prototype.parse = function (data) {
-	
+
 	var tmp = null,
-		map = this.map;
+		self = this,
+		map = this.map,
+		model = this.model;
 
 	if (data.length) {
 	    data = _.map(data, function(repo) {
-	    	if (typeof map.parse === 'function') return map.parse(repo);
 	    	tmp = {};
-	    	for (var prop in map) {
-	    		// if (!map.hasOwnProperty(prop)) continue;
-	    		tmp[prop] = repo[map[prop]];
+	    	if (typeof map.parse === 'function') tmp = map.parse(repo);
+	    	else {
+		    	for (var prop in map) {
+		    		// if (!map.hasOwnProperty(prop)) continue;
+		    		tmp[prop] = repo[map[prop]];
+		    	}
 	    	}
-	        return tmp;
-	    })
+	    	return (!model) ? tmp : new model(tmp); 
+	    });
 	} else {
 		data = [];
 	}
+
 	return data;
 };
 Transfomer.prototype.serialize = function (data) {
 
+	console.info("Transfomer serialize:", data);
 	var result = [],
 		tmp = null,
 		map = this.map;

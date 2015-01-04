@@ -3,13 +3,9 @@
 UsersCtrl.$inject = ['$scope','$state','UsersService'];
 function UsersCtrl ($scope, $state, UsersService) {
 	$scope.users = [];
-	
 	$scope.selectUser = function (user) {
-		var userId = $scope.users.indexOf(user);
-		if (userId < 0) throw new TypeError("Selected user was not found");
-		
 		$state.go('app.users.details', {
-			userId: userId
+			userId: UsersService.getUserIdByObject(user)
 		});
 	};
 	$scope.doRefresh = function () {
